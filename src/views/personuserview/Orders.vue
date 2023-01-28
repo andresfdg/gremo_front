@@ -13,6 +13,7 @@
               <th scope="col">store_id</th>
               <th scope="col">gield_id</th>
               <th scope="col">stade</th>
+              <th scope="col">received?</th>
             </tr>
           </thead>
           <tbody>
@@ -23,6 +24,12 @@
               <td>{{ i.store_id }}</td>
               <td>{{ i.gield_id }}</td>
               <td>{{ i.active }}</td>
+              <td>
+                {{
+                  i.active == "send" ? (data.btn = true) : (data.btn = false)
+                }}
+                <button v-if="data.btn">received</button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -36,6 +43,7 @@ import { onMounted, reactive } from "@vue/runtime-core";
 
 const data = reactive({
   orders: {},
+  btn: false,
 });
 
 const orders = () => {

@@ -10,8 +10,12 @@
           <div>adress: {{ i.adress }}</div>
           <div>quantity: {{ i.quantity }}</div>
           <div>discount: {{ i.discount }}</div>
+          <button v-if="i.active == 'In process'" @click="() => send(i)">
+            send
+          </button>
         </div>
       </div>
+      {{ data.store }}
     </div>
   </div>
 </template>
@@ -39,6 +43,23 @@ const store = () => {
   })
     .then((res) => res.json())
     .then((da) => (data.store = da));
+};
+
+const send = async (i) => {
+  let idx = {
+    id: i.id,
+  };
+
+  const res = await fetch(`http://127.0.0.1:8000/send`, {
+    method: "POST",
+    body: JSON.stringify(idx),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+
+  store();
 };
 
 onMounted(() => {
