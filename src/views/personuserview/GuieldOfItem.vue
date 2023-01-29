@@ -3,16 +3,16 @@
     <div class="container">
       <div>.</div>
       <h1 class="titleguield">Item Guilds</h1>
-
-      <div v-for="i in data.types"
-          :key="i">
-        <button @click=" () => filter(i)" >
-         <span v-if ='i=="True"'>Active</span>
-         <span v-if ='i=="In process"'>In process</span>
-         <span v-if ='i=="send"'>send</span>
-         <span v-if ='i=="finished"'>finished</span>
-         <span v-if ='i=="all"'>all</span>
-        </button>
+      <div class="d-flex">
+        <div v-for="i in data.types" :key="i">
+          <button @click="() => filter(i)">
+            <span v-if="i == 'True'">Active</span>
+            <span v-if="i == 'In process'">In process</span>
+            <span v-if="i == 'send'">send</span>
+            <span v-if="i == 'finished'">finished</span>
+            <span v-if="i == 'all'">all</span>
+          </button>
+        </div>
       </div>
 
       <div class="mt-5"></div>
@@ -84,30 +84,30 @@
       </div>
 
       <div class="row">
-        <div
-          v-for="i in data.guields"
-          :key="i"
-          @click="() => activeform(i)"
-        >
-          <div class="guildca card col-3 m-5 d-flex justify-content-center" v-if="i.active==data.filtertype || data.filtertype=='all' " >
-            <div>
-              <div>name: {{ router.params.name }}</div>
-              <div>actual_quantity: {{ i.actual_quantity }}</div>
-              <div>discount: {{ i.discount }}</div>
-              <div>quantity_max: {{ i.quantity_max }}</div>
-              <div>state: {{ i.active }}</div>
+        <div v-for="i in data.guields" :key="i" @click="() => activeform(i)">
+          <div
+            class="guildca card col-3 m-5 d-flex justify-content-center"
+            v-if="i.active == data.filtertype || data.filtertype == 'all'"
+          >
+            <div class="d-flex">
+              <div>
+                <div>name: {{ router.params.name }}</div>
+                <div>actual_quantity: {{ i.actual_quantity }}</div>
+                <div>discount: {{ i.discount }}</div>
+                <div>quantity_max: {{ i.quantity_max }}</div>
+                <div>state: {{ i.active }}</div>
+              </div>
+
+              <img
+                class="mt-3"
+                src="../../assets/guild.png"
+                alt=""
+                width="60"
+                height="80"
+              />
             </div>
-            <img
-              class="mt-3"
-              src="../../assets/guild.png"
-              alt=""
-              width="60"
-              height="80"
-            />
           </div>
-
         </div>
-
       </div>
       {{ data.id_guield }}
     </div>
@@ -136,8 +136,8 @@ const data = reactive({
   quantity_low: "",
   quantity_medium: "",
   quantity_high: "",
-  filtertype:"all",
-  types:['True', 'In process', 'send', 'finished', 'all']
+  filtertype: "all",
+  types: ["True", "In process", "send", "finished", "all"],
 });
 
 const router = useRoute();
@@ -173,13 +173,12 @@ const activeformguild = () => {
 };
 
 const open = () => {
-  if (router.params.open=='true'){
-    data.open= true
+  if (router.params.open == "true") {
+    data.open = true;
+  } else {
+    data.open = false;
   }
-  else{
-    data.open= false
-  }
-}
+};
 
 const craete_order = async () => {
   let payload = {
@@ -239,11 +238,9 @@ const get_item = async () => {
 };
 
 const filter = (i) => {
-  data.filtertype=i
-  console.log(data.filtertype)
+  data.filtertype = i;
+  console.log(data.filtertype);
 };
-
-
 
 onMounted(() => {
   getguields();

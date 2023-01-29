@@ -2,10 +2,19 @@
   <div class="home vh-100">
     <div class="container">
       <span class="titlehome">Welcome! {{ data.user.name }}</span>
+
+      <div class="d-flex justify-content-center m-2">
+        <input type="text" placeholder="search" v-model.trim="data.query" />
+        <button @click="search"><i class="bx bx-search-alt"></i></button>
+      </div>
+      <div class="d-flex justify-content-center m-2">
+        <button>2</button>
+      </div>
       <div class="alitem">
         <span class="welcomestore">
           <div class="bv">
             <div>Stores:</div>
+
             <div>
               <i class="bx bxs-store"></i>
             </div>
@@ -35,6 +44,7 @@ import CardStoreVue from "../../components/CardStore.vue";
 const store = useStore();
 
 const data = reactive({
+  query: "",
   name: "hola",
   user: {},
   stores: {},
@@ -57,6 +67,23 @@ const stores = async () => {
   fetch("http://127.0.0.1:8000/allstore")
     .then((res) => res.json())
     .then((da) => (data.stores = da));
+};
+
+const search = async () => {
+  let qr = {
+    query: data.query,
+  };
+  const res = await fetch(`http://127.0.0.1:8000/search`, {
+    method: "POST",
+    body: JSON.stringify(qr),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+
+  const da = await res.json();
+  data.stores = da;
 };
 
 onMounted(() => {
