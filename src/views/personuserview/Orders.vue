@@ -25,10 +25,18 @@
               <td>{{ i.gield_id }}</td>
               <td>{{ i.active }}</td>
               <td>
-                {{
-                  i.active == "send" ? (data.btn = true) : (data.btn = false)
-                }}
-                <button v-if="data.btn">received</button>
+                <button @click="() => completed(i)" v-if="i.active == 'send'">
+                  received
+                </button>
+                <span v-if="i.active == 'finished'">
+                  <i class="bx bx-check"></i>
+                </span>
+                <span v-if="i.active == 'In process'"
+                  >your order has not been shipped
+                </span>
+                <span v-if="i.active == 'True'"
+                  >we are processing your order
+                </span>
               </td>
             </tr>
           </tbody>
@@ -43,7 +51,6 @@ import { onMounted, reactive } from "@vue/runtime-core";
 
 const data = reactive({
   orders: {},
-  btn: false,
 });
 
 const orders = () => {
@@ -55,6 +62,20 @@ const orders = () => {
   })
     .then((res) => res.json())
     .then((da) => (data.orders = da));
+};
+
+const completed = async (i) => {
+  const ids = i.id;
+  console.log(i.id);
+  const res = await fetch(`http://127.0.0.1:8000/completed/${ids}`, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+  console.log("ok");
+  orders();
 };
 
 onMounted(() => {
