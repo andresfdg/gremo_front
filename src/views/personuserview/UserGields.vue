@@ -12,9 +12,23 @@
           <div>gield_id: {{ i.gield_id }}</div>
           <div>name: {{ i.name }}</div>
           <div>price: {{ i.price }}</div>
-          <div>total people: {{ i.order_number }}</div>
-          <div>quantity max: {{ i.pop_max }}</div>
-          <div>state: {{ i.active }}</div>
+          <div>total orders: {{ i.order_number }}</div>
+          <div>actual quantity: {{ i.actual_quantity}}</div>
+          <div>quantity max: {{ i.quantity_max }}</div>
+          <div>
+            <span v-if="i.active == 'finished'">
+                  <i class="bx bx-check"></i>
+            </span>
+            <span v-if="i.active == 'In process'"
+                  >State: In process
+            </span>
+            <span v-if="i.active == 'True'"
+                  >State: Active
+            </span>
+            <span v-if="i.active == 'send'"
+                  >State: send
+            </span>
+          </div>
         </div>
       </div>
     </div>

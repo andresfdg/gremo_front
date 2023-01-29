@@ -3,6 +3,18 @@
     <div class="container">
       <div>.</div>
       <h1 class="titleguield">Item Guilds</h1>
+
+      <div v-for="i in data.types"
+          :key="i">
+        <button @click=" () => filter(i)" >
+         <span v-if ='i=="True"'>Active</span>
+         <span v-if ='i=="In process"'>In process</span>
+         <span v-if ='i=="send"'>send</span>
+         <span v-if ='i=="finished"'>finished</span>
+         <span v-if ='i=="all"'>all</span>
+        </button>
+      </div>
+
       <div class="mt-5"></div>
       <div class="alin">
         <div class="arrow">
@@ -73,12 +85,11 @@
 
       <div class="row">
         <div
-          class="guildca card col-3 m-5 d-flex justify-content-center"
           v-for="i in data.guields"
           :key="i"
           @click="() => activeform(i)"
         >
-          <div class="alm">
+          <div class="guildca card col-3 m-5 d-flex justify-content-center" v-if="i.active==data.filtertype || data.filtertype=='all' " >
             <div>
               <div>name: {{ router.params.name }}</div>
               <div>actual_quantity: {{ i.actual_quantity }}</div>
@@ -94,7 +105,9 @@
               height="80"
             />
           </div>
+
         </div>
+
       </div>
       {{ data.id_guield }}
     </div>
@@ -123,6 +136,8 @@ const data = reactive({
   quantity_low: "",
   quantity_medium: "",
   quantity_high: "",
+  filtertype:"all",
+  types:['True', 'In process', 'send', 'finished', 'all']
 });
 
 const router = useRoute();
@@ -156,6 +171,15 @@ const activeformguild = () => {
   data.open = false;
   get_item();
 };
+
+const open = () => {
+  if (router.params.open=='true'){
+    data.open= true
+  }
+  else{
+    data.open= false
+  }
+}
 
 const craete_order = async () => {
   let payload = {
@@ -214,8 +238,16 @@ const get_item = async () => {
   data.quantity_high = da.quantity_high;
 };
 
+const filter = (i) => {
+  data.filtertype=i
+  console.log(data.filtertype)
+};
+
+
+
 onMounted(() => {
   getguields();
+  open();
 });
 </script>
 
