@@ -91,11 +91,13 @@
           >
             <div class="d-flex">
               <div>
-                <div>name: {{ router.params.name }}</div>
-                <div>actual_quantity: {{ i.actual_quantity }}</div>
-                <div>discount: {{ i.discount }}</div>
-                <div>quantity_max: {{ i.quantity_max }}</div>
-                <div>state: {{ i.active }}</div>
+                <div>Id: {{ i.id }}</div>
+                <div>Name: {{ router.params.name }}</div>
+                <div>Actual_quantity: {{ i.actual_quantity }}</div>
+                <div>Discount: {{ i.discount }}</div>
+                <div>Quantity_max: {{ i.quantity_max }}</div>
+                <div>State: {{ i.active }}</div>
+                <div>Counter: {{ i.active }}</div>
               </div>
 
               <img
