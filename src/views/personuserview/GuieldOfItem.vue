@@ -18,7 +18,7 @@
       <div class="mt-5"></div>
       <div class="alin">
         <div class="arrow">
-          <router-link class="mt-3" :to="`/homestore/${router.params.it}`"
+          <router-link class="mt-3" :to="`/homestore/${router.params.id}`"
             ><i class="bx bx-arrow-back"></i
           ></router-link>
           <div>

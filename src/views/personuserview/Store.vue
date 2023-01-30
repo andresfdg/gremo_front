@@ -24,27 +24,11 @@
         <div
           v-for="(i, a) in data.items"
           :key="i"
-          class="storeca card col-3 m-5"
+          class="col-3 m-5"
         >
-          <router-link
-            :to="`/guielditem/${router.params.id}/${i.id}/${i.name}/${i.price}/${i.open}`"
-            style="text-decoration: none; color: inherit"
-          >
-            <div><span class="spa">product: </span> {{ i.name }}</div>
-            <div><span class="spa">category: </span> {{ i.category }}</div>
-            <div><span class="spa">price:</span> {{ i.price }}</div>
-
-            <button
-              class="openbutton"
-              :style="
-                i.open == true
-                  ? 'background-color: #4efc03;color:green'
-                  : 'background-color: #fc3f3f;color:#8f2121'
-              "
-            >
-              open: {{ i.open }}
-            </button>
-          </router-link>
+          
+          <ItemCardUserVue :name="i.name" :category="i.category" :price="i.price"  :open="i.open" :id="i.id" :storeid="router.params.id"></ItemCardUserVue>
+          
         </div>
       </div>
     </div>
@@ -54,6 +38,7 @@
 <script setup>
 import { onMounted, reactive, onUnmounted } from "@vue/runtime-core";
 import { useRouter, useRoute } from "vue-router";
+import ItemCardUserVue from "../../components/ItemCardUser.vue";
 
 const router = useRoute();
 
@@ -195,7 +180,6 @@ onMounted(() => {
 
 .storeca {
   width: 200px;
-  background-color: ;
   color: black;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
