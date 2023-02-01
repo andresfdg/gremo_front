@@ -21,15 +21,20 @@
           >added!</span
         >
         <div></div>
-        <div
-          v-for="(i, a) in data.items"
-          :key="i"
-          class="col-3 m-5"
-        >
-          
-          <ItemCardUserVue :name="i.name" :category="i.category" :price="i.price"  :open="i.open" :id="i.id" :storeid="router.params.id"></ItemCardUserVue>
-          
+        <div v-for="(i, a) in data.items" :key="i" class="col-3 m-5">
+          <ItemCardUserVue
+            :name="i.name"
+            :category="i.category"
+            :price="i.price"
+            :open="i.open"
+            :id="i.id"
+            :storeid="router.params.id"
+            :likes="i.likes"
+            @funt="items"
+            @funt2="xx"
+          ></ItemCardUserVue>
         </div>
+        {{ data.items }}
       </div>
     </div>
   </div>
@@ -77,7 +82,7 @@ const items = async () => {
   });
   const da = await res.json();
   data.items = da;
-  console.log(da);
+  console.log("holis");
   /* for (let i in da) {
     fetch(`http://127.0.0.1:8000/availability/${da[i].id}`, {
       headers: {
@@ -116,6 +121,10 @@ const createorder = () => {
   setTimeout(() => {
     data.span = false;
   }, 3000);
+};
+
+const xx = () => {
+  console.log("helo");
 };
 
 onMounted(() => {

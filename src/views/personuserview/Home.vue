@@ -20,15 +20,14 @@
             </div>
           </div>
         </span>
-        <div class="row">
-          <div class="col-lg-2" v-for="i in data.stores" :key="i">
-            <router-link
-              style="text-decoration: none; color: inherit"
-              :to="`homestore/${i.id}`"
-            >
-              <CardStoreVue :title="i.name" :date="i.date"></CardStoreVue>
-            </router-link>
-          </div>
+
+        <div class="col-2" v-for="i in data.stores" :key="i">
+          <router-link
+            style="text-decoration: none; color: inherit"
+            :to="`homestore/${i.id}`"
+          >
+            <CardStoreVue :title="i.name" :date="i.date"></CardStoreVue>
+          </router-link>
         </div>
       </div>
     </div>
@@ -100,7 +99,7 @@ onMounted(() => {
 .alitem {
   display: flex;
   background-color: rgb(113, 200, 138);
-  justify-content: center;
+
   padding: 10px;
   border-radius: 8px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
