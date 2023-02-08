@@ -54,6 +54,7 @@
             }}
           </div>
         </form>
+        <div class="cho-container"></div>
       </div>
 
       <div class="fit">
@@ -121,6 +122,7 @@ import { reactive } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
 
+
 const data = reactive({
   guields: [],
   id_guield: "",
@@ -143,6 +145,10 @@ const data = reactive({
 });
 
 const router = useRoute();
+
+const mp = new MercadoPago('APP_USR-ef96565f-917d-4cf1-8a3d-b63962e50be9', {
+    locale: 'es-AR'
+  });
 
 const getguields = async () => {
   const id = router.params.id;
@@ -182,7 +188,37 @@ const open = () => {
   }
 };
 
+
+
 const craete_order = async () => {
+
+  let payload1 = {
+    title: "una compra",
+    item_id: Number(1), 
+    price: Number(10000),
+    quantity: Number(data.quantity),
+  };
+
+  const res1 = await fetch(`http://127.0.0.1:8000/generate_payment`, {
+    method: "POST",
+    body: JSON.stringify(payload1),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+  const da1 = res1.json();
+
+  mp.checkout({
+    preference: {
+      id: da1
+    },
+    render: {
+      container: '.cho-container',
+      label: 'Pagar',
+    }
+  });
+
   let payload = {
     guild_id: Number(data.id_guield),
     quantity: Number(data.quantity),
