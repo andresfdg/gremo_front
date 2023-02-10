@@ -131,6 +131,7 @@ const data = reactive({
   form: false,
   formguild: false,
   open: false,
+  pagoaprobado: "", 
 
   itemid: 0,
   quantity_max: "52",
@@ -189,6 +190,7 @@ const open = () => {
 
 const craete_order = async () => {
   let payload1 = {
+    guild_id: Number(data.id_guield),
     title: "una compra",
     item_id: Number(1),
     price: Number(10000),
@@ -218,21 +220,20 @@ const craete_order = async () => {
   let payload = {
     guild_id: Number(data.id_guield),
     quantity: Number(data.quantity),
-  };
-
+  }
   const res = await fetch(`http://127.0.0.1:8000/user_inter_guild`, {
-    method: "POST",
-    body: JSON.stringify(payload),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
+  method: "POST",
+  body: JSON.stringify(payload),
+  headers: {
+    "Content-type": "application/json; charset=UTF-8",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   });
   const da = res.json();
   console.log(da);
   data.form = false;
   getguields();
-};
+  }
 
 const craete_guild = async () => {
   let payload = {
@@ -242,7 +243,7 @@ const craete_guild = async () => {
     life_time: Number(data.life_time),
   };
 
-  const res = await fetch(`http://127.0.0.1:8000/user_create_new_guild`, {
+  const res = await fetch(`http://127.0.0.1:8000/generate_payment_creation`, {
     method: "POST",
     body: JSON.stringify(payload),
     headers: {
