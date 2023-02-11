@@ -147,7 +147,7 @@ const data = reactive({
 const router = useRoute();
 
 const mp = new MercadoPago("APP_USR-ef96565f-917d-4cf1-8a3d-b63962e50be9", {
-  locale: "es-AR",
+  locale: "es-CO",
 });
 
 const getguields = async () => {
@@ -191,9 +191,8 @@ const open = () => {
 const craete_order = async () => {
   let payload1 = {
     guild_id: Number(data.id_guield),
-    title: "una compra",
-    item_id: Number(1),
-    price: Number(10000),
+    title: "Payment",
+    item_id: Number(router.params.id),
     quantity: Number(data.quantity),
   };
 
@@ -205,7 +204,7 @@ const craete_order = async () => {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   });
-  const da1 = res1.json();
+  const da1 = await res1.json();
 
   mp.checkout({
     preference: {
@@ -217,20 +216,6 @@ const craete_order = async () => {
     },
   });
 
-  let payload = {
-    guild_id: Number(data.id_guield),
-    quantity: Number(data.quantity),
-  }
-  const res = await fetch(`http://127.0.0.1:8000/user_inter_guild`, {
-  method: "POST",
-  body: JSON.stringify(payload),
-  headers: {
-    "Content-type": "application/json; charset=UTF-8",
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
-  });
-  const da = res.json();
-  console.log(da);
   data.form = false;
   getguields();
   }
@@ -251,8 +236,7 @@ const craete_guild = async () => {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   });
-  const da = res.json();
-  console.log(da);
+  
   data.form = false;
   getguields();
 };
