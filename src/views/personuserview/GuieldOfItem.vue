@@ -1,11 +1,11 @@
 <template>
-  <div class="guield vh-100">
+  <div class="guield">
     <div class="container">
       <div>.</div>
       <h1 class="titleguield">Item Guilds</h1>
       <div class="d-flex">
         <div v-for="i in data.types" :key="i">
-          <button @click="() => filter(i)">
+          <button class="btguild" @click="() => filter(i)">
             <span v-if="i == 'True'">Active</span>
             <span v-if="i == 'In process'">In process</span>
             <span v-if="i == 'send'">send</span>
@@ -23,7 +23,7 @@
           ></router-link>
           <div>
             <button
-              class="btguild"
+              class="btguildt"
               v-if="data.open"
               @click="() => activeformguild()"
             >
@@ -377,6 +377,21 @@ onMounted(() => {
   border-radius: 4px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+.btguildt {
+  background-color: rgb(127, 229, 255);
+  margin: 10px;
+  border: none;
+  padding: 10px;
+  font-size: 18px;
+  font-family: sans-serif;
+  font-weight: bold;
+  border-radius: 4px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+.btguildt:hover {
+  background-color: rgb(21, 207, 253);
 }
 
 .btguild:hover {
