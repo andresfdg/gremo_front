@@ -85,16 +85,26 @@
       </div>
 
       <div class="row">
-        <div v-for="i in data.guields" :key="i" @click="() => activeform(i)">
+        <div
+          class="col"
+          v-for="i in data.guields"
+          :key="i"
+          @click="() => activeform(i)"
+        >
           <div
-            class="guildca card col-3 m-5 d-flex justify-content-center"
+            class="guildca card col-3 m-5 justify-content-center"
             v-if="i.active == data.filtertype || data.filtertype == 'all'"
           >
             <div class="d-flex">
               <div>
-                <div>Id: {{ i.id }}</div>
+                <div class="solid">
+                  <span class="solidt">Id: </span> {{ i.id }}
+                </div>
                 <div>Name: {{ router.params.name }}</div>
-                <div>Actual_quantity: {{ i.actual_quantity }}</div>
+                <div class="solid">
+                  <span class="solidt">Actual_quantity: </span>
+                  {{ i.actual_quantity }}
+                </div>
                 <div>Discount: {{ i.discount }}</div>
                 <div>Quantity_max: {{ i.quantity_max }}</div>
                 <div>State: {{ i.active }}</div>
@@ -131,7 +141,7 @@ const data = reactive({
   form: false,
   formguild: false,
   open: false,
-  pagoaprobado: "", 
+  pagoaprobado: "",
 
   itemid: 0,
   quantity_max: "52",
@@ -218,7 +228,7 @@ const craete_order = async () => {
 
   data.form = false;
   getguields();
-  }
+};
 
 const craete_guild = async () => {
   let payload = {
@@ -236,9 +246,18 @@ const craete_guild = async () => {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   });
-  
+  const da1 = await res.json();
   data.form = false;
   getguields();
+  mp.checkout({
+    preference: {
+      id: da1,
+    },
+    render: {
+      container: ".cho-container",
+      label: "Pagar",
+    },
+  });
 };
 
 const get_item = async () => {
@@ -362,5 +381,16 @@ onMounted(() => {
 
 .btguild:hover {
   background-color: rgb(249, 223, 54);
+}
+
+.solid {
+  font-size: large;
+  font-weight: bold;
+  color: red;
+}
+.solidt {
+  font-size: large;
+  font-weight: bold;
+  color: black;
 }
 </style>
