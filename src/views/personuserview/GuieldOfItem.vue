@@ -155,8 +155,9 @@ const data = reactive({
 });
 
 const router = useRoute();
-
-const mp = new MercadoPago("APP_USR-ef96565f-917d-4cf1-8a3d-b63962e50be9", {
+//TEST-21bbff78-2020-4a48-bbf2-e7357a59b1df
+//APP_USR-450cc8e7-ba80-45d6-a44d-81346f710cc5
+const mp = new MercadoPago("APP_USR-450cc8e7-ba80-45d6-a44d-81346f710cc5", {
   locale: "es-CO",
 });
 
