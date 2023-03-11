@@ -10,7 +10,15 @@
         </button>
       </div>
       <form @submit.prevent="addStores" v-if="data.form">
-        <input placeholder="Store name" v-model="ada.name" />
+        <input placeholder="Store name" v-model="ada.name" required />
+        <input
+          ref="img"
+          type="file"
+          name=""
+          id=""
+          @change="handlechange"
+          required
+        />
         <button>create store</button>
       </form>
 
@@ -95,6 +103,13 @@
 <script setup>
 import { reactive } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
+import { ref } from "vue";
+
+const img = ref("");
+
+const handlechange = () => {
+  console.log(img.value.files);
+};
 
 const data = reactive({
   span: false,
@@ -106,6 +121,7 @@ const data = reactive({
 
 const ada = reactive({
   name: "",
+  file: "",
 });
 
 const item = reactive({
@@ -120,18 +136,16 @@ const item = reactive({
 });
 
 const addStores = async () => {
+  const formData = new FormData();
+  formData.append("file", img.value.files[0], ada.name);
+
   const res = await fetch(`http://127.0.0.1:8000/store/create`, {
     method: "POST",
-    body: JSON.stringify(ada),
+    body: formData,
     headers: {
-      "Content-type": "application/json; charset=UTF-8",
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   });
-
-  const da = await res.json();
-  console.log(da);
-  data.store = da;
 };
 
 const addItem = async () => {

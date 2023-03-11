@@ -26,7 +26,11 @@
             style="text-decoration: none; color: inherit"
             :to="`homestore/${i.id}`"
           >
-            <CardStoreVue :title="i.name" :date="i.date"></CardStoreVue>
+            <CardStoreVue
+              :title="i.name"
+              :date="i.date"
+              :img="i.img"
+            ></CardStoreVue>
           </router-link>
         </div>
       </div>

@@ -1,11 +1,8 @@
 <template>
   <div class="montans card mt-3">
     <p class="title p-1 m-1">{{ title }}</p>
-    <img
-      class="m-1"
-      src="https://i0.wp.com/musiconthehilldc.com/wp-content/uploads/2021/02/20170907_MusicontheHill175.jpg?fit=1200%2C700&ssl=1https://i0.wp.com/musiconthehilldc.com/wp-content/uploads/2021/02/20170907_MusicontheHill175.jpg?fit=1200%2C700&ssl=1"
-      alt=""
-    />
+    <img class="hhh m-1" :src="imgd()" alt="" width="150" height="100" />
+
     <div class="x border">
       <div class="s container">
         <p>Description</p>
@@ -28,7 +25,14 @@
 const props = defineProps({
   title: String,
   date: String,
+  img: String,
 });
+
+const imgd = () => {
+  return props.img;
+};
+
+
 </script>
 
 <style>
@@ -53,4 +57,5 @@ const props = defineProps({
   font-size: 12px;
   font-weight: bold;
 }
+
 </style>
